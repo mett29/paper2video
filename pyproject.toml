@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "paper2video"
+version = "0.1.0"
+description = ""
+authors = ["Mattia Mancassola"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+python-dotenv = "^1.0.1"
+requests = "^2.32.3"
+arxiv = "^2.1.3"
+google-generativeai = "^0.7.2"
+pillow = "^10.4.0"
+pylatex = "^1.4.2"
+pypdfium2 = "^4.30.0"
+moviepy = "^1.0.3"
+google-cloud-texttospeech = "^2.17.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
