@@ -5,9 +5,11 @@ import argparse
 from dotenv import load_dotenv
 import google.generativeai as genai
 
+load_dotenv()
+
 from utils.arxiv_client import ArxivClient
 from utils.editing import create_beamer, convert_to_video
-from config.config import PROMPT
+from config import config
 
 
 parser = argparse.ArgumentParser(description="Generate presentation video given an arXiv paper.")
@@ -16,8 +18,6 @@ args = parser.parse_args()
 
 
 if __name__ == "__main__":
-
-    load_dotenv()
 
     arxiv_client = ArxivClient()
     paper_id, paper_path = arxiv_client.download_paper(args.arxiv_paper)
@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     model = genai.GenerativeModel(
         model_name='models/gemini-1.5-flash',
-        system_instruction=PROMPT
+        system_instruction=config.PROMPT
     )
 
     # Upload paper (pdf) via File API
@@ -47,6 +47,9 @@ if __name__ == "__main__":
     print(raw_response.usage_metadata)
 
     response = json.loads(raw_response.text)
+
+    with open(os.path.join(config.OUTPUT_DIRPATH, 'slides_content.json'), 'w') as f_out:
+        json.dump(response, f_out, indent=4)
 
     presentation_path = create_beamer(slides_content=response)
     convert_to_video(
