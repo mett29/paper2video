@@ -6,9 +6,9 @@ import os
 OUTPUT_DIRPATH = os.getenv('OUTPUT_PATH', './output')
 os.makedirs(OUTPUT_DIRPATH, exist_ok=True)
 AUDIO_CLIPS_PATH = os.path.join(OUTPUT_DIRPATH, 'audio_clips')
-os.makedirs(AUDIO_CLIPS_PATH)
+os.makedirs(AUDIO_CLIPS_PATH, exist_ok=True)
 VIDEO_CLIPS_PATH = os.path.join(OUTPUT_DIRPATH, 'video_clips')
-os.makedirs(VIDEO_CLIPS_PATH)
+os.makedirs(VIDEO_CLIPS_PATH, exist_ok=True)
 
 PROMPT = """
 Your job is to automate the creation of PowerPoint files given the content
