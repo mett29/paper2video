@@ -78,10 +78,7 @@ def pdf_to_img(pdf_path: str) -> List[Image.Image]:
     pil_images = []
     for page_number in range(n_pages):
         page = pdf.get_page(page_number)
-        bitmap = page.render(
-            scale=1,    # 72dpi resolution
-            rotation=0  # no additional rotation
-        )
+        bitmap = page.render(scale=2)
         pil_images.append(bitmap.to_pil())
     return pil_images
 
@@ -110,7 +107,7 @@ def convert_to_video(slides_content: List[dict], presentation_path: str) -> None
             image_path = os.path.join(temp_path, f"frame_{i}.jpg")
             # Save the single audio clip
             audio_path = os.path.join(config.AUDIO_CLIPS_PATH, f"frame_{i}.mp3")
-            # image = image.resize((2000, 1500), Image.Resampling.LANCZOS)
+            image = image.resize((1280, 720), Image.Resampling.LANCZOS)
             image.save(image_path)
             # Convert text (narration) to MP3
             text_to_mp3(slide_narration, audio_path)
